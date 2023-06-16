@@ -13,6 +13,7 @@ import {
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const navigate1 = useNavigate();
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
 
@@ -27,8 +28,12 @@ const Header = () => {
   }, []);
 
   const navigator = () =>{
-    navigate('/original')
+    navigate('/watchlist')
   }
+  const navigator1 = () =>{
+    navigate('/search')
+  }
+
 
   const handleAuth = () => {
     if (!userName) {
@@ -66,7 +71,7 @@ const Header = () => {
   return (
     <Nav>
       <Logo>
-        <img src="/images/logo.svg" alt="Disney+" />
+        <img src="\images\logo-no-background.svg" alt="Disney+" />
       </Logo>
 
       {!userName ? (
@@ -80,15 +85,15 @@ const Header = () => {
             </a>
             <a>
               <img src="/images/search-icon.svg" alt="SEARCH" />
-              <span>SEARCH</span>
+              <span onClick={navigator1}>SEARCH</span>
             </a>
             <a>
               <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
-              <span>WATCHLIST</span>
+              <span onClick={navigator}>WATCHLIST</span>
             </a>
             <a>
               <img src="/images/original-icon.svg" alt="ORIGINALS" />
-              <span onClick={navigator}>ORIGINALS</span>
+              <span >ORIGINALS</span>
             </a>
             <a>
               <img src="/images/movie-icon.svg" alt="MOVIES" />
@@ -119,6 +124,7 @@ const Nav = styled.nav`
   left: 0;
   right: 0;
   height: 70px;
+  //background-color: #003366;
   background-color: #090b13;
   display: flex;
   justify-content: space-between;
@@ -126,13 +132,14 @@ const Nav = styled.nav`
   padding: 0 36px;
   letter-spacing: 16px;
   z-index: 3;
+  cursor: pointer;
 `;
 
 const Logo = styled.a`
   padding: 0;
-  width: 80px;
+  width: 95px;
   margin-top: 4px;
-  max-height: 70px;
+  max-height: 85px;
   font-size: 0;
   display: inline-block;
 

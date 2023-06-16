@@ -1,11 +1,61 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import styled from "styled-components";
 import db from "../firebase";
+import addMovieToWatchlist from '../features/movie/movieSlice'
 
 const Detail = (props) => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
+
+  const [watchlist, setWatchlist] = useState([]);
+
+  const addToWatchlist = () => {
+    setWatchlist([...watchlist, detailData]);
+    console.log('added in watchlist: ', detailData)
+  };
+
+  const addMovieToWatchlist = (movieData) => {
+    Promise.resolve(movieData)
+      .then((resolvedMovieData) => {
+        // Add the resolved movie data to the watchlist collection in Firebase
+        db.collection("watchlist")
+          .add(resolvedMovieData)
+          .then((docRef) => {
+            console.log("Movie added to watchlist with ID: ", docRef.id);
+          })
+          .catch((error) => {
+            console.error("Error adding movie to watchlist: ", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error resolving movie data: ", error);
+      });
+  };
+
+  const getMovieDataFromDatabase = (movieId) => {
+    // Implement the logic to retrieve movie data from your movie database using the movieId
+    // Return the movie data object
+    // Example:
+    return db.collection("Movies").doc(movieId).get().then((doc) => {
+      if (doc.exists) {
+        return doc.data();
+      } else {
+        throw new Error("Movie not found");
+      }
+    });
+  };
+
+  const handleAddToWatchlist = (movieId) => {
+    // Retrieve the movie data from your movie database using the movieId
+    const movieData = getMovieDataFromDatabase(movieId);
+  
+    // Add the movie data to the watchlist collection in Firebase
+    addMovieToWatchlist(movieData);
+  };
 
   useEffect(() => {
     db.collection("Movies").doc(id).get()
@@ -41,7 +91,8 @@ const Detail = (props) => {
             <img src="/images/play-icon-white.png" alt="" />
             <span>Trailer</span>
           </Trailer>
-          <AddList>
+          {/* <AddList onClick={addToWatchlist}> */}
+          <AddList onClick={() => handleAddToWatchlist(id)}>
             <span />
             <span />
           </AddList>

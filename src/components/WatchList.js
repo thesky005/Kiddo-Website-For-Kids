@@ -1,26 +1,47 @@
-import React from "react";
+import React , {useEffect , useState} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectPopular } from "../features/movie/movieSlice";
+import db from '../firebase'
+//import Detail from "./Detail";
 
-const NewDisney = (props) => {
-  const movies = useSelector(selectPopular);
-  console.log("this is movies popular" , movies)
+
+const WatchList = () => {
+
+  const [movies , setmovies] = useState([]);
+
+  useEffect(() =>{
+    const unsubscribe = db.collection('watchlist').limit(100).onSnapshot(querySnapshot => {
+      const data = querySnapshot.docs.map(doc =>({
+        ...doc.data(),
+        id:doc.id,
+      }));
+      console.log("WatchList data : ",data)
+      setmovies(data);
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <Container>
-      <h2>New To Disney+</h2>
+      <h2>Watchlist</h2>
       <Content>
-        {movies &&
-          movies.map((movie, key) => (
-            <Wrap key={key}>
+        {/* {movies && movies.map((movie) => (
+          <Wrap key={movie.id}>
               {movie.id}
+              {console.log(movie.id)}
               <Link to={`/detail/` + movie.id}>
-                <img src={movie.CardImg} alt={movie.title} referrerpolicy="no-referrer"/>
-              </Link>
-            </Wrap>
-          ))}
+              <img src={movie.CardImg} alt={movie.title} />
+            </Link>
+          </Wrap>
+        ))} */}
+        {movies && movies.map((movie) => (
+          <Wrap key={movie.id}>
+              {movie.id}
+              <Link to={`/detail/${movie.id}`}>
+              <img src={movie.CardImg} alt={movie.title} />
+            </Link>
+          </Wrap>
+        ))}
       </Content>
     </Container>
   );
@@ -28,17 +49,16 @@ const NewDisney = (props) => {
 
 const Container = styled.div`
   padding: 0 0 26px;
+  h2{
+    margin-top:80px ;
+  }
 `;
 
 const Content = styled.div`
   display: grid;
   grid-gap: 25px;
   gap: 25px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 `;
 
 const Wrap = styled.div`
@@ -51,7 +71,6 @@ const Wrap = styled.div`
   position: relative;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border: 3px solid rgba(249, 249, 249, 0.1);
-
   img {
     inset: 0px;
     display: block;
@@ -64,7 +83,6 @@ const Wrap = styled.div`
     z-index: 1;
     top: 0;
   }
-
   &:hover {
     box-shadow: rgb(0 0 0 / 80%) 0px 40px 58px -16px,
       rgb(0 0 0 / 72%) 0px 30px 22px -10px;
@@ -73,4 +91,4 @@ const Wrap = styled.div`
   }
 `;
 
-export default NewDisney;
+export default WatchList;

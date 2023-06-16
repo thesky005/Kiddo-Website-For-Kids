@@ -20,19 +20,19 @@ function ImgSlider() {
     <Carousel {...setting}>
         <Wrap>
             {/* <video src ="videos/33b277f6-db0b-45ee-8bc7-9be0de581f5b.mp4"/> */}
-            <img src ="images/slider-scale.jpg"/>
+            <img src ="images/slider-scale.jpg" alt='Image'/>
         </Wrap>
         <Wrap>
-            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABTEsSjfV8WpqUj3DZoQ5KmkCiDgSl1ZGcQqfTCn96BZDKEwZsHaU0hU-LD9Mo6L_CTlqi5-QH4GcQPpRK91h78Q8_jGfAHDTixbUr7XaDoShTCEyLdXg_sOdMW-INg.jpg?r=8f0"/>
+            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABTEsSjfV8WpqUj3DZoQ5KmkCiDgSl1ZGcQqfTCn96BZDKEwZsHaU0hU-LD9Mo6L_CTlqi5-QH4GcQPpRK91h78Q8_jGfAHDTixbUr7XaDoShTCEyLdXg_sOdMW-INg.jpg?r=8f0" alt='Image'/>
         </Wrap>
         <Wrap>
-            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABREtmp5ikQ5lOIq1XrEtA_8e-6hwep-jljHSTwKb248geEi0pacAAaEURc944HBwIq5Na6OIW5Ra3kNsKR3OoJUGfDpZ.jpg?r=148"/>
+            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABREtmp5ikQ5lOIq1XrEtA_8e-6hwep-jljHSTwKb248geEi0pacAAaEURc944HBwIq5Na6OIW5Ra3kNsKR3OoJUGfDpZ.jpg?r=148" alt='Image'/>
         </Wrap>
         <Wrap>
-            <img src ="images/slider-badag.jpg"/>
+            <img src ="images/slider-badag.jpg" alt='Image'/>
         </Wrap>
         <Wrap>
-            <img src ="images/slider-scales.jpg"/>
+            <img src ="images/slider-scales.jpg" alt='Image'/>
         </Wrap>
         </Carousel>
   )
@@ -64,20 +64,6 @@ const Carousel = styled(Slider)`
 `
 const Wrap = styled.div`
     cursor: pointer;
-    /*video{
-        border: 4px solid transparent;
-        width : 100%;
-        height: 100%;
-        border-radius: 10px;
-        box-shadow:  0 26px 30px -10px black;
-        //rgb(0 0 0 / 69%) 0px 26px 30px -10px rgb(0 0 0 / 73%) 0px 16px 10px -10px;
-        transition: 300ms;
-
-        &:hover{
-            border: 4px solid rgba(249,249,249,0.8) 
-        }
-
-    }*/
     img{
         border: 3px solid transparent;
         max-height:390px;

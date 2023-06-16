@@ -5,18 +5,18 @@ import Originals from "./Originals";
 import Recommends from "./Recommends";
 import Trending from "./Trending";
 import Viewers from "./Viewers";
-import { useEffect } from "react";
+import { useEffect ,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import db from "../firebase";
-import { setMovies } from "../features/movie/movieSlice";
+import { setMovies} from "../features/movie/movieSlice";
 import { selectUserName } from "../features/user/userSlice";
-import Movies from "./Movies";
+//import Movies from "./Movies";
 
 const Home = (props) => {
   const dispatch = useDispatch();
   const userName = useSelector(selectUserName);
+  const [watchlist, setWatchlist] = useState([]);
   let recommends = [];
-  let newDisney = [];
   let originals = [];
   let trending = [];
 
@@ -28,10 +28,6 @@ const Home = (props) => {
         switch (doc.data().type) {
           case "recommend":
             recommends = [...recommends, { id: doc.id, ...doc.data() }];
-            break;
-
-          case "popular":
-            newDisney = [...newDisney, { id: doc.id, ...doc.data() }];
             break;
 
           case "original":
@@ -47,21 +43,18 @@ const Home = (props) => {
       dispatch(
         setMovies({
           recommend: recommends,
-          newDisney: newDisney,
           original: originals,
           trending: trending,
-        })
+        }), 
       );
     });
   }, [userName]);
-
   return (
     <Container>
       <ImgSlider />
       <Viewers />
       {/* <Movies/> */}
       <Recommends />
-      <NewDisney />
       <Originals />
       <Trending />
     </Container>
@@ -87,4 +80,7 @@ const Container = styled.main`
   }
 `;
 
+
 export default Home;
+
+
