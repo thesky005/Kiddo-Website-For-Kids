@@ -5,6 +5,9 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import db from "../firebase";
 import addMovieToWatchlist from '../features/movie/movieSlice'
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 const Detail = (props) => {
   const dispatch = useDispatch();
@@ -13,19 +16,23 @@ const Detail = (props) => {
 
   const [watchlist, setWatchlist] = useState([]);
 
-  const addToWatchlist = () => {
-    setWatchlist([...watchlist, detailData]);
-    console.log('added in watchlist: ', detailData)
-  };
+  const user =  firebase.auth().currentUser;
+  console.log("User UID get : ",user.uid)
+
+  // const addToWatchlist = () => {
+  //   setWatchlist([...watchlist, detailData]);
+  //   console.log('added in watchlist: ', detailData)
+  // };
 
   const addMovieToWatchlist = (movieData) => {
     Promise.resolve(movieData)
       .then((resolvedMovieData) => {
         // Add the resolved movie data to the watchlist collection in Firebase
-        db.collection("watchlist")
+        db.collection("watchlist").doc(user.uid).collection("userwatchlist")
           .add(resolvedMovieData)
           .then((docRef) => {
-            console.log("Movie added to watchlist with ID: ", docRef.id);
+            alert("Movie added to watchlist")
+            console.log("Movie added to watchlist with ID: ", user.uid);
           })
           .catch((error) => {
             console.error("Error adding movie to watchlist: ", error);

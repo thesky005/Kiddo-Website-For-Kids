@@ -20,19 +20,20 @@ function ImgSlider() {
     <Carousel {...setting}>
         <Wrap>
             {/* <video src ="videos/33b277f6-db0b-45ee-8bc7-9be0de581f5b.mp4"/> */}
-            <img src ="images/slider-scale.jpg" alt='Image'/>
+            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABRyD4sKSlYoMWpQEB-DHMfRXsMXz9vMn6NNUpAjspbT6mkxgfkcw2IisHkVHP3kinzV5TzPxCbprfTqkEsS-yS4m43yb.jpg?r=cf9" alt='Image'/>
         </Wrap>
         <Wrap>
-            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABTEsSjfV8WpqUj3DZoQ5KmkCiDgSl1ZGcQqfTCn96BZDKEwZsHaU0hU-LD9Mo6L_CTlqi5-QH4GcQPpRK91h78Q8_jGfAHDTixbUr7XaDoShTCEyLdXg_sOdMW-INg.jpg?r=8f0" alt='Image'/>
+            <img src ="\images\dino-transformed.jpeg" alt='Image'/>
         </Wrap>
         <Wrap>
-            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABREtmp5ikQ5lOIq1XrEtA_8e-6hwep-jljHSTwKb248geEi0pacAAaEURc944HBwIq5Na6OIW5Ra3kNsKR3OoJUGfDpZ.jpg?r=148" alt='Image'/>
+            <img src ="\images\dinoi-transformed.jpeg" alt='Image'/>
         </Wrap>
         <Wrap>
-            <img src ="images/slider-badag.jpg" alt='Image'/>
+            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABYgc913hXtu2Co_5CTGGdiqSC57UkVJnvR7fDc6HBfj3NFGknMTk9EhrI4WnjXQ9ab4VOLWLv5SRev25n2Eq1DOcjzhp.jpg?r=7fc" alt='Image'/>
         </Wrap>
         <Wrap>
-            <img src ="images/slider-scales.jpg" alt='Image'/>
+            <img src ="https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABdl6-PzX95nbPL5HWathe6A8kttbSAsIzL8jdnj7PGGm2sNSrtgugVevCote0Kr5qhLoiOfOe1JpCPXk7AciSh_758xI.jpg?r=269" alt='Image'/>
+
         </Wrap>
         </Carousel>
   )

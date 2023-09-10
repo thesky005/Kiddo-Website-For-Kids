@@ -47,7 +47,7 @@ const Search = () => {
           <Wrap key={movie.id}>
               {movie.id}
               <Link to={`/detail/${movie.id}`}>
-              <img src={movie.CardImg} alt={movie.title} />
+              <img src={movie.CardImg} alt={movie.title}/>
             </Link>
           </Wrap>
         ))}

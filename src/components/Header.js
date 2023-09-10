@@ -22,6 +22,7 @@ const Header = () => {
       if (user) {
         setUser(user);
         console.log(user);
+        console.log(user.uid)
         navigate("/home");
       }
     });

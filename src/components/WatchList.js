@@ -1,25 +1,50 @@
 import React , {useEffect , useState} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import db from '../firebase'
+import userSlice from "../features/user/userSlice";
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 //import Detail from "./Detail";
 
 
 const WatchList = () => {
 
+  const user =  firebase.auth().currentUser;
+  console.log("User UID get : ",user.uid)
+
+  const { id } = useParams();
+  
+
   const [movies , setmovies] = useState([]);
 
-  useEffect(() =>{
-    const unsubscribe = db.collection('watchlist').limit(100).onSnapshot(querySnapshot => {
-      const data = querySnapshot.docs.map(doc =>({
-        ...doc.data(),
-        id:doc.id,
-      }));
-      console.log("WatchList data : ",data)
-      setmovies(data);
-    });
-    return unsubscribe;
-  }, []);
+  
+
+  useEffect(() => {
+    // Check if a user is authenticated
+    if (user) {
+      const db = firebase.firestore();
+
+      // Reference to the user's watchlist collection
+      const watchlistRef = db.collection('watchlist').doc(user.uid).collection('userwatchlist');
+
+      // Set up a listener to get watchlist data
+      const unsubscribe = watchlistRef.onSnapshot((querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setmovies(data);
+      });
+
+      return () => {
+        // Unsubscribe from the listener when the component unmounts
+        unsubscribe();
+      };
+    }
+  }, [user]);
 
   return (
     <Container>
@@ -49,6 +74,7 @@ const WatchList = () => {
 
 const Container = styled.div`
   padding: 0 0 26px;
+  margin: 100px;
   h2{
     margin-top:80px ;
   }
@@ -59,10 +85,12 @@ const Content = styled.div`
   grid-gap: 25px;
   gap: 25px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+
 `;
 
 const Wrap = styled.div`
   padding-top: 56.25%;
+ 
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
     rgb(0 0 0 / 73%) 0px 16px 10px -10px;
@@ -73,6 +101,7 @@ const Wrap = styled.div`
   border: 3px solid rgba(249, 249, 249, 0.1);
   img {
     inset: 0px;
+    //padding-left: 50px;
     display: block;
     height: 100%;
     object-fit: cover;
